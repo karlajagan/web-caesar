@@ -1,33 +1,39 @@
-import string
-from sys import argv, exit
-from helpers import alphabet_position, rotate_character
+def alphabet_position(character):
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    lower = character.lower()
+    return alphabet.index(lower)
 
+def rotate_string_13(text):
 
-def rotate_string(text,rot):
-    encripted_message = ""
-    for character in text:
-        if character in string.whitespace \
-        or character in string.punctuation \
-        or character.isdigit():
-            encripted_message += character
+    rotated = ''
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+    for char in text:
+        rotated_idx = (alphabet_position(char) + 13) % 26
+        if char.isupper():
+            rotated = rotated + alphabet[rotated_idx].upper()
         else:
-            encripted_message += rotate_character(character,rot)
+            rotated = rotated + alphabet[rotated_idx]
 
-    return encripted_message
+    return rotated
 
-def main():
+def rotate_character(char, rot):
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    rotated_idx = (alphabet_position(char) + rot) % 26
 
-    if len(argv) > 1:
-        if argv[1].isdigit():
-            rotation = int(argv[1])
-        else:
-            print('rotation must be a integer number ')
-            exit()
+    if char.isupper():
+        return alphabet[rotated_idx].upper()
     else:
-       print('usage: python3 caesar.py number')
-        exit()
-    message = input("Type a message: ")
-    print(rotate_string(message,rotation))
+        return alphabet[rotated_idx]
 
-if __name__ == "__main__":
-    main()
+def rotate_string(text, rot):
+
+    rotated = ''
+
+    for char in text:
+        if (char.isalpha()):
+            rotated = rotated + rotate_character(char, rot)
+        else:
+            rotated = rotated + char
+
+    return rotated
