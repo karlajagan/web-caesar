@@ -26,8 +26,7 @@ form = """
         </style>
     </head>
     <body>
-    <form>
-        <method="POST">
+    <form action= "/" method="POST">
             <label>Rotate by:
                 <input name="rot" type="text"  value="0"/>
              </label>
